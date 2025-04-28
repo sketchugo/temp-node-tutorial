@@ -1,0 +1,1 @@
+This is wack: Hello, this is first text file. // Hello, this is second text file.This is wack: Hello, this is first text file. // Hello, this is second text file.
