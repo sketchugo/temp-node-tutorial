@@ -1,34 +1,18 @@
-const { readFile, writeFile } = require("fs").promises;
-// const util = require("util");
+const http = require("http");
+const PORT = 3000;
 
-// const readFilePromise = util.promisify(readFile);
-// const writeFilePromise = util.promisify(writeFile);
+//Standard way
+// const server = http.createServer((req, res) => {
+//     res.end("Welcome");
+// });
 
-const start = async () => {
-    try {
-        const first = await readFile("./content/first.txt", "utf8");
-        const second = await readFile("./content/second.txt", "utf8");
-        await writeFile("./content/result-mind-grenade.txt", `This is wack: ${first} // ${second}`, {flag: "a"});
-        console.log(first, second);        
-    } catch (error) {
-        console.log(error);
-    };
-};
+//Use event emitter API
+const server = http.createServer();
 
-start();
+//emits request event
+//subscribe to the event, listen for it and respond
+server.on("request", (req, res) => {
+    res.end("Welcome (emitter)");
+});
 
-// const getText = (path) => {
-//     return new Promise((res, rej) => {
-//         readFile(path, "utf8", (err, data) => {
-//             if (err) {
-//                 rej(err);
-//             } else {
-//                 res(data) 
-//             };
-//         });
-//     });
-// };
-
-// getText("./content/first.txt")
-//     .then(res => console.log(res))
-//     .catch(err => console.log(err));
+server.listen(PORT, console.log(`Listening on por ${PORT}`))
